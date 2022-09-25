@@ -2,8 +2,13 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-module.exports = {
-  output: {},
+module.exports = (_, argv) => ({
+  output: {
+    publicPath:
+      argv.mode === "development"
+        ? "http://localhost:8084/"
+        : "https://solid-mf-wp5-zyhb.vercel.app/",
+  },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
@@ -65,4 +70,4 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
-};
+});
